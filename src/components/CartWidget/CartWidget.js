@@ -1,11 +1,11 @@
 import React from 'react';
-import {Icon} from 'semantic-ui-react';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import './CartWidget.css'
 
 const CartWidget = () => {
     return (
         <div className='cart'>
-            <Icon name='cart' size='large' />   
+            <ShoppingCartIcon />   
         </div>
     )
 }
