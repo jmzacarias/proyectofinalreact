@@ -1,0 +1,17 @@
+.counterBtn {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+  }
+  
+  button {
+    margin: 5px;
+  }
+  p {
+    background-color: rgb(230, 221, 221);
+    color: black;
+  }
+  .disabled {
+    color: rgb(183, 185, 183);
+  }
+  

@@ -1,28 +1,28 @@
-import React, {useState} from 'react';
-// import './ItemCount.css';
+import React, {useState} from 'react'
+import './ItemCount.css'
 
 
-const ItemCount = () => {
-  const [counter, setCounter] = useState(0);
+const ItemCount = ({ stock, initial, onAdd }) => {
+        const [counter, setCounter] = useState(initial);  
 
-  const counterUp = () =>{
-      if (counter<10){
-          setCounter(counter+1);
-      }
-  };
- const counterDown = ()=>{
-     if (counter > 0) {
-         setCounter(counter - 1);
-     }
- };
-  return (
-    <div className="contador">
-        <h2>Cantidad</h2>
-        <p>{counter}</p>
-        <button onClick={counterUp}>+</button>
-        <button onClick={counterDown}>-</button>
-    </div>
-  )
-};
+    return (
+        <section className='counterContainer'>
+            
+            <div className='counterBtn'>
+                <button onClick={()=> {
+                    if (counter < stock) {setCounter(counter + 1)}}}>+</button>
+               
+                { counter > 0 ?
+                <button  onClick={()=>{onAdd(counter)}}> Agregar {counter} productos al carrito</button> :
+                <button className='disabled'> Agregar {counter} productos al carrito</button> 
+                }
 
-export default ItemCount;
+                <button onClick={()=> {
+                    if (counter > 0) {setCounter(counter - 1)}}}>-</button>
+            </div> 
+
+        </section> 
+    )
+}
+
+export default ItemCount
