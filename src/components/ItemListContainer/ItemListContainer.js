@@ -1,14 +1,35 @@
-import React from 'react';
-import ItemCount from '../ItemCount/ItemCount';
+import { useEffect, useState } from 'react';
+import { traerProductos } from '../../data/productos';
+
+import ItemList from '../ItemList/ItemList';
+
+
 
 const ItemListContainer = ({greeting}) => {
-  const onAdd = (qty)=>{
-    alert(`Agregaste ${qty} productos a tu carrito`)
-  }
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+      traerProductos
+          .then((res) => {
+              setProducts(res);
+          })
+          .catch((error) => {
+              console.log(error);
+          })
+          .finally(() => {
+              setLoading(false);
+          });
+  }, []);
+
+
   return (
     <div>
         <h1 style={{color: 'green', backgroundColor:'white'}}>{greeting}</h1>
-        <ItemCount stock={5} initial={0} onAdd={onAdd}/>
+        { 
+         loading ? <h2>Cargando...</h2> :
+         <ItemList products={products}/>
+        }
     </div>
   )
 };
