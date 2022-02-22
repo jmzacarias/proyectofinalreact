@@ -24,7 +24,7 @@ const ItemListContainer = ({greeting}) => {
 
 
   return (
-    <div>
+    <div className='ItemListContainer'>
         <h1 style={{color: 'green', backgroundColor:'white'}}>{greeting}</h1>
         { 
          loading ? <h2>Cargando...</h2> :
