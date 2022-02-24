@@ -9,14 +9,15 @@ const Item = ({ product }) => {
       }
 
   return (
-    <Link to = {`/item/${product.id}`}>
+    
       <div className='card'>
           <img style={{width: '150px'}} src={product.img} alt='imagen'/>
           <h3>Producto: {product.name}</h3>
           <h4>Precio : ${product.price}</h4>
           <ItemCount stock={5} initial={0} onAdd={onAdd}/>
+          <Link to = {`/item/${product.id}`}><button>Ver detalles</button></Link>
       </div>
-    </Link>
+    
   )
 }
 
