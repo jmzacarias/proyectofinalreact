@@ -13,8 +13,8 @@ function App() {
         </header>
         <Routes>
           <Route path='/' element= {<ItemListContainer greeting='¡Bienvenidos a la tienda!'/>}/>
-          <Route path='/category/:categoryId' element= {<ItemListContainer />}/>
-          <Route path='/detail/:productId' element= {<ItemDetailContainer />} />
+          {/* <Route path='/category/:categoryId' element= {<ItemListContainer />}/> */}
+          <Route path='/item/:productId' element= {<ItemDetailContainer />} />
         </Routes>
       </Router>
     </div>

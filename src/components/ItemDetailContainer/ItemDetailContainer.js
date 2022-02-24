@@ -8,15 +8,14 @@ import { useParams } from 'react-router-dom';
 const ItemDetailContainer = () => {
     const [item, setItem] = useState()
     const [loading, setLoading] = useState(true)
-    const params = useParams();
-    console.log(params);
-
+    let { productId } = useParams()
+    
     useEffect(() => {
-        traerProducto(2).then(r=>{
-            setItem(r)
+        traerProducto(productId).then(item=>{
+            setItem(item)
             setLoading(false)
         }).catch(error=>{ 
-                        console.log(error);})
+        console.log(error);})
     },[]);
 
     return (
@@ -31,5 +30,5 @@ const ItemDetailContainer = () => {
         </>
     )
 }
-
+ 
 export default ItemDetailContainer

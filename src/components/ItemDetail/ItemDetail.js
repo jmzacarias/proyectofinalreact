@@ -2,7 +2,7 @@ import React from 'react'
 import './ItemDetail.css'
 
 const ItemDetail = ( { item }) => {
-    return (
+    return ( 
         <div className='ItemDetailContainer'>  
             <div className='ItemDetail'>
                 <img style={{width: '200px'}} src={item.img} alt={item.title} width={300} />
@@ -14,4 +14,4 @@ const ItemDetail = ( { item }) => {
     )
 }
 
-export default ItemDetail
+export default ItemDetail 

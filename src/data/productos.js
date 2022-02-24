@@ -25,17 +25,19 @@ export const productos = [
     },
 ];
 
-export const traerProductos = new Promise((resolve, reject) => {
+export const traerProductos = ()=>{
+    return new Promise((res) => {
     setTimeout(() => {
-        resolve(productos);
-    }, 2000);
+        res(productos);
+    }, 1000);
 });
+}
 
 export const traerProducto = (id)=> {
     return new Promise ((res)=>{
-        const producto = productos.find(p => p.id === id)
+        const producto = productos.find(p => p.id == id)
         setTimeout(()=>{
             res(producto)
-        },4000)
+        },2000)
     })
 }

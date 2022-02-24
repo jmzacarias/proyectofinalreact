@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { traerProductos } from '../../data/productos';
-
 import ItemList from '../ItemList/ItemList';
 
 
@@ -9,18 +8,20 @@ const ItemListContainer = ({greeting}) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
-      traerProductos
-          .then((res) => {
-              setProducts(res);
-          })
-          .catch((error) => {
-              console.log(error);
+      traerProductos().then(res => {
+            setProducts(res)
+          }).catch(error => {
+              console.log(error)
           })
           .finally(() => {
-              setLoading(false);
-          });
-  }, []);
+              setLoading(false)
+          })
+          return (()=> { 
+              setProducts()
+          })
+  },[]);
 
 
   return (
@@ -30,6 +31,7 @@ const ItemListContainer = ({greeting}) => {
          loading ? <h2>Cargando...</h2> :
          <ItemList products={products}/>
         }
+    
     </div>
   )
 };
