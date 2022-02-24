@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
-import { traerProductos } from '../../data/productos';
+import { traerProductos, traerProductosPorCategoria } from '../../data/productos';
 import ItemList from '../ItemList/ItemList';
+import { useParams } from 'react-router-dom';
 
 
 
 const ItemListContainer = ({greeting}) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { categoryId } = useParams();
 
 
   useEffect(() => {
+    if (!categoryId){
       traerProductos().then(res => {
             setProducts(res)
           }).catch(error => {
@@ -21,8 +24,16 @@ const ItemListContainer = ({greeting}) => {
           return (()=> { 
               setProducts()
           })
-  },[]);
-
+    }else{
+      traerProductosPorCategoria(categoryId).then(res=>{
+        setProducts(res)
+      }).catch(error=>{
+        console.log(error)
+      }).finally(()=>{
+        setLoading(false)
+      })
+    }
+  },[categoryId]);
 
   return (
     <div className='ItemListContainer'>
