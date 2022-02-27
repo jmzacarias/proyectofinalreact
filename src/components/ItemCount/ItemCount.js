@@ -11,15 +11,15 @@ const ItemCount = ({ stock, initial, onAdd }) => {
             
             <div className='counterBtn'>
                 <button onClick={()=> {
-                    if (counter < stock) {setCounter(counter + 1)}}}>+</button>
+                    if (counter > 0) {setCounter(counter - 1)}}}>-</button>
                
                 { counter > 0 ?
                 <button  onClick={()=>{onAdd(counter)}}> Agregar {counter} productos al carrito</button> :
                 <button className='disabled'> Agregar {counter} productos al carrito</button> 
                 }
-
                 <button onClick={()=> {
-                    if (counter > 0) {setCounter(counter - 1)}}}>-</button>
+                    if (counter < stock) {setCounter(counter + 1)}}}>+</button>
+                
             </div> 
 
         </section> 
