@@ -1,0 +1,6 @@
+.elementoCarrito{
+    display: flex;
+    flex-direction: row;
+    max-width: fit-content;
+    margin-left: 15%;
+}

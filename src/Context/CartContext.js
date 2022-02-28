@@ -8,7 +8,7 @@ export const CartContextProvider = ({children}) =>{
    
     const addToCart = (qty, product) =>{
        if (isInCart(product.id)){
-        sumarQty(product.id, qty);  
+        sumarQty(product.id, qty); 
        }else{ 
         setCart([...cart, {...product , qty}  ])}
     }
@@ -21,22 +21,34 @@ export const CartContextProvider = ({children}) =>{
         setCart(newCart)
     }
 
-    const emptyCart = ()=> setCart([]);
+    const emptyCart = ()=> {setCart([]);
+        this.props.history.push('/');
+        };
 
+    // const removeById = (id)=>{
+    //     let newCart = [...cart];
+    //     const indexToRemove = newCart.findIndex(prod =>{
+    //         return prod.id===id;
+    //     })
+    //     console.log(indexToRemove);
+    //     newCart.splice(indexToRemove, 1)
+    //     setCart(newCart)
+    // }
     const removeById = (id)=>{
-        let newCart = [...cart];
-        const indexToRemove = newCart.findIndex(prod =>{
-            return prod.id===id;
-        })
-        console.log(indexToRemove);
-        newCart.splice(indexToRemove, 1)
+        let newCart = [];
+        cart.forEach(element => {
+            if(element.id!==id){
+                newCart.push(element)
+            }
+        });
+        console.log(newCart);
         setCart(newCart)
     }
 
 
 
     return(
-        <CartContext.Provider value={{cart, addToCart}}>
+        <CartContext.Provider value={{cart, addToCart, emptyCart, removeById}}>
             {children}
         </CartContext.Provider>
     )
