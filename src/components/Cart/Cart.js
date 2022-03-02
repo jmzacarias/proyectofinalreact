@@ -5,11 +5,13 @@ import { Link } from 'react-router-dom';
 import './Cart.css'
 
 const Cart = () => {
-  const { emptyCart, cart, removeById } = useContext(CartContext);
+  const { qtyInCart, emptyCart, cart, removeById } = useContext(CartContext);
 
   return (
     <div>
-        <h1>Estás por comprar:</h1>
+        {
+          qtyInCart(cart)>0 ?
+         <div><h1>Estás por comprar:</h1>
         {cart.map(element=><div className='elementoCarrito'>
           <div >{element.qty} {element.name} por ${element.price} c/u</div>
           <button onClick={()=>{
@@ -17,7 +19,13 @@ const Cart = () => {
           }}>X</button></div>)}
         <Link to='/'>
           <button onClick={()=>{emptyCart()}}>Vaciar carrito</button>
-        </Link>
+        </Link></div> :
+        <div><h2>No hay productos en tu carrito</h2><Link to='/'>
+        <button>Volver el inicio</button>
+      </Link></div>
+        }
+        
+
     </div>
     
   )
