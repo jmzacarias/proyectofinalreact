@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { traerProductos, traerProductosPorCategoria } from '../../data/productos';
+// import { traerProductos, traerProductosPorCategoria } from '../../data/productos';
 import ItemList from '../ItemList/ItemList';
 import { useParams } from 'react-router-dom';
-
+import { getDocs, collection, query, where } from 'firebase/firestore'
+import { db } from '../../services/firebase/firebase'
 
 
 const ItemListContainer = ({greeting}) => {
@@ -12,27 +13,23 @@ const ItemListContainer = ({greeting}) => {
 
 
   useEffect(() => {
-    if (!categoryId){
-      traerProductos().then(res => {
-            setProducts(res)
-          }).catch(error => {
-              console.log(error)
-          })
-          .finally(() => {
-              setLoading(false)
-          })
-          return (()=> { 
-              setProducts()
-          })
-    }else{
-      traerProductosPorCategoria(categoryId).then(res=>{
-        setProducts(res)
-      }).catch(error=>{
-        console.log(error)
-      }).finally(()=>{
-        setLoading(false)
+    setLoading(true);
+
+    const productCollection = collection(db, 'productos');
+    const filteredProductsByCategory = query(productCollection, where("category", "==", categoryId));
+
+    const collectionRef = !categoryId ? productCollection : filteredProductsByCategory
+
+    getDocs(collectionRef).then(res=>{
+      const products = res.docs.map(doc=>{
+        console.log(doc)
+        return {id: doc.id, ...doc.data()}
       })
-    }
+      console.log(products);
+      setProducts(products)
+    }).finally(()=>{
+      setLoading(false)
+    })
   },[categoryId]);
 
   return (
