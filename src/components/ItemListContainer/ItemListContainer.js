@@ -16,9 +16,9 @@ const ItemListContainer = ({greeting}) => {
     setLoading(true);
 
     const productCollection = collection(db, 'productos');
-    const filteredProductsByCategory = query(productCollection, where("category", "==", categoryId));
+    const filteredProductsByCategory = query(collection(db, 'productos'), where("category", "==", categoryId));
 
-    const collectionRef = !categoryId ? productCollection : filteredProductsByCategory
+    const collectionRef = !categoryId ? productCollection : filteredProductsByCategory;
 
     getDocs(collectionRef).then(res=>{
       const products = res.docs.map(doc=>{
