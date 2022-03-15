@@ -2,7 +2,7 @@ import React from 'react'
 import { CartContext } from '../../Context/CartContext';
 import { useContext, useState} from 'react';
 import { Link } from 'react-router-dom';
-import { addDoc , collection } from 'firebase/firestore';
+import { addDoc , collection, writeBatch , doc, getDoc } from 'firebase/firestore';
 import { db } from '../../services/firebase/firebase';
 import './Cart.css'
 
@@ -28,6 +28,32 @@ const Cart = () => {
     addDoc(collection(db,'orders'), objOrder).then((response)=>{
       console.log(response)
     })
+
+    const batch = writeBatch(db)
+    const outOfStock = []
+
+    objOrder.items.forEach(p=>{
+      getDoc(doc(db,'products', p.id)).then(res=>{
+        if(p.stock>=objOrder.items.find(prod => prod.id === p.id).qty){
+          batch.update(doc(db,'products',res.id),{
+            stock: p.stock - objOrder.items.find(prod => prod.id === p.id).qty
+          })
+        }else{
+          outOfStock.push({ id: res.id, ...res.data()})
+        }
+      })
+    })
+    if(outOfStock.length === 0){
+      addDoc(collection(db,'orders'), objOrder).then(({id})=>{
+        batch.commit().then(()=>{
+          alert(`Su orden de compra es la nro ${id}`)
+        })
+      }).catch(error=>{
+        console.log({error:error})
+      })
+    }else{
+      alert(`Stock insuficiente `)
+    }
   }
   return (
     <div>
