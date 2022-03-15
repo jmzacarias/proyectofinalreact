@@ -22,7 +22,7 @@ export const CartContextProvider = ({children}) =>{
     }
 
     const emptyCart = ()=> {setCart([]);
-        this.props.history.push('/');
+        // this.props.history.push('/');
         };
 
     // const removeById = (id)=>{
@@ -30,7 +30,6 @@ export const CartContextProvider = ({children}) =>{
     //     const indexToRemove = newCart.findIndex(prod =>{
     //         return prod.id===id;
     //     })
-    //     console.log(indexToRemove);
     //     newCart.splice(indexToRemove, 1)
     //     setCart(newCart)
     // }
@@ -41,7 +40,6 @@ export const CartContextProvider = ({children}) =>{
                 newCart.push(element)
             }
         });
-        console.log(newCart);
         setCart(newCart)
     }
 

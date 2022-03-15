@@ -23,10 +23,8 @@ const ItemListContainer = ({greeting}) => {
 
     getDocs(collectionRef).then(res=>{
       const products = res.docs.map(doc=>{
-        console.log(doc)
         return {id: doc.id, ...doc.data()}
       })
-      console.log(products);
       setProducts(products)
     }).finally(()=>{
       setLoading(false)

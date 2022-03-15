@@ -1,12 +1,34 @@
 import React from 'react'
 import { CartContext } from '../../Context/CartContext';
-import { useContext } from 'react';
+import { useContext, useState} from 'react';
 import { Link } from 'react-router-dom';
+import { addDoc , collection } from 'firebase/firestore';
+import { db } from '../../services/firebase/firebase';
 import './Cart.css'
 
 const Cart = () => {
+  // const [processingOrder, setProcessingOrder] = useState(false)
   const { totalCart, qtyInCart, emptyCart, cart, removeById } = useContext(CartContext);
   
+  const confirmOrder = ()=>{
+    // setProcessingOrder(true);
+
+    const objOrder = {
+      buyer: {
+        name: 'Juan',
+        phone: '2524423432',
+        adress: 'Siempre Viva 1234'
+      },
+      items: cart,
+      total: totalCart(cart),
+      date: new Date()
+    }
+    console.log(objOrder)
+
+    addDoc(collection(db,'orders'), objOrder).then((response)=>{
+      console.log(response)
+    })
+  }
   return (
     <div>
         {
@@ -19,7 +41,7 @@ const Cart = () => {
           }}>X</button></div>)}
           <p>Total: ${totalCart(cart)}</p>
         <Link to='/'>
-          <button onClick={()=>{alert('Total: $ '+totalCart(cart)); emptyCart()}}>Finalizar Compra</button>
+          <button onClick={()=>{confirmOrder(); emptyCart()}}>Finalizar Compra</button>
         </Link>
         <Link to='/'>
           <button onClick={()=>{emptyCart()}}>Vaciar carrito</button>
