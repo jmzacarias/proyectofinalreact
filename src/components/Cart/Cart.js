@@ -5,14 +5,10 @@ import { Link } from 'react-router-dom';
 import { addDoc , collection, writeBatch , doc, getDoc } from 'firebase/firestore';
 import { db } from '../../services/firebase/firebase';
 import './Cart.css'
-
 const Cart = () => {
-  // const [processingOrder, setProcessingOrder] = useState(false)
   const { totalCart, qtyInCart, emptyCart, cart, removeById } = useContext(CartContext);
-  
   const confirmOrder = ()=>{
     // setProcessingOrder(true);
-
     const objOrder = {
       buyer: {
         name: 'Juan',
@@ -33,9 +29,9 @@ const Cart = () => {
     const outOfStock = []
 
     objOrder.items.forEach(p=>{
-      getDoc(doc(db,'products', p.id)).then(res=>{
+      getDoc(doc(db,'productos', p.id)).then(res=>{
         if(p.stock>=objOrder.items.find(prod => prod.id === p.id).qty){
-          batch.update(doc(db,'products',res.id),{
+          batch.update(doc(db,'productos',res.id),{
             stock: p.stock - objOrder.items.find(prod => prod.id === p.id).qty
           })
         }else{

@@ -23,16 +23,7 @@ export const CartContextProvider = ({children}) =>{
 
     const emptyCart = ()=> {setCart([]);
         // this.props.history.push('/');
-        };
-
-    // const removeById = (id)=>{
-    //     let newCart = [...cart];
-    //     const indexToRemove = newCart.findIndex(prod =>{
-    //         return prod.id===id;
-    //     })
-    //     newCart.splice(indexToRemove, 1)
-    //     setCart(newCart)
-    // }
+        }
     const removeById = (id)=>{
         let newCart = [];
         cart.forEach(element => {
