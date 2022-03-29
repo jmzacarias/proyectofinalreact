@@ -5,7 +5,6 @@ export const CartContext = createContext();
 
 export const CartContextProvider = ({children}) =>{
     const [cart, setCart] = useState ([]);
-   
     const addToCart = (qty, product) =>{
        if (isInCart(product.id)){
         sumarQty(product.id, qty); 
@@ -20,7 +19,6 @@ export const CartContextProvider = ({children}) =>{
         newCart.forEach((p)=>p.id===id && (p.qty +=qty))
         setCart(newCart)
     }
-
     const emptyCart = ()=> {setCart([]);
         // this.props.history.push('/');
         }
@@ -34,13 +32,13 @@ export const CartContextProvider = ({children}) =>{
         setCart(newCart)
     }
 
-    const qtyInCart = (cart)=>{
+    const qtyInCart = ()=>{
         let totalQty = 0;
         cart.forEach(e=>{totalQty+=e.qty})
         return totalQty
     }
 
-    const totalCart = (cart)=>{
+    const totalCart = ()=>{
         let totalAmount = 0;
         cart.forEach(e=>{let amountByProduct = e.qty*e.price;
             totalAmount += amountByProduct})           
